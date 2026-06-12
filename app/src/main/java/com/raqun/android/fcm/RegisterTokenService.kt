@@ -6,8 +6,6 @@ import com.raqun.android.RaqunApp
 import com.raqun.android.api.RaqunServices
 import com.raqun.android.api.request.RegisterTokenRequest
 import com.raqun.android.util.SharedPrefUtil
-import io.reactivex.schedulers.Schedulers
-import io.reactivex.rxkotlin.subscribeBy
 import java.util.concurrent.Executors
 
 object RegisterTokenService {

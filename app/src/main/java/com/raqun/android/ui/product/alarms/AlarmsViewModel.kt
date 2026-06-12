@@ -3,24 +3,18 @@ package com.raqun.android.ui.product.alarms
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import android.util.Log
+import androidx.lifecycle.viewModelScope
 import com.raqun.android.api.request.AlarmRequest
 import com.raqun.android.data.DataBean
 import com.raqun.android.data.source.ProductRepository
 import com.raqun.android.data.source.UserRepository
 import com.raqun.android.extensions.getError
 import com.raqun.android.model.Alarm
-import com.raqun.android.model.Product
 import com.raqun.android.model.UiDataBean
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 import dagger.hilt.android.lifecycle.HiltViewModel
 
-/**
- * Created by tyln on 06/11/2017.
- */
 @HiltViewModel
 class AlarmsViewModel @Inject constructor(private val productRepository: ProductRepository,
                                           private val userRepository: UserRepository)
@@ -31,11 +25,11 @@ class AlarmsViewModel @Inject constructor(private val productRepository: Product
     private val alarmsLiveData = MediatorLiveData<DataBean<List<Alarm>>>()
 
     init {
-        alarmsLiveData.addSource(productIdLiveData, { productId: String? ->
+        alarmsLiveData.addSource(productIdLiveData) { productId: String? ->
             if (isUserLoggedIn() && productId != null) {
                 getAlarmsOfProduct(productId)
             }
-        })
+        }
     }
 
     fun getAlarms() = alarmsLiveData
@@ -43,29 +37,20 @@ class AlarmsViewModel @Inject constructor(private val productRepository: Product
     fun isUserLoggedIn() = userRepository.isUserLoggedIn()
 
     fun setProductId(productId: String?) {
-        if (productId == null) {
-            return
-        }
-
-        if (productId == productIdLiveData.value) {
-            return
-        }
-
+        if (productId == null) return
+        if (productId == productIdLiveData.value) return
         productIdLiveData.value = productId
     }
 
     private fun getAlarmsOfProduct(productId: String) {
         alarmsLiveData.value = UiDataBean.fetching(null)
-        productRepository.getAlarms(AlarmRequest(productId))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeBy(
-                        onSuccess = {
-                            alarmsLiveData.value = UiDataBean.success(it.items)
-                        },
-                        onError = {
-                            alarmsLiveData.value = UiDataBean.error(null, it.getError())
-                        }
-                )
+        viewModelScope.launch {
+            try {
+                val result = productRepository.getAlarms(AlarmRequest(productId))
+                alarmsLiveData.value = UiDataBean.success(result.items)
+            } catch (e: Exception) {
+                alarmsLiveData.value = UiDataBean.error(null, e.getError())
+            }
+        }
     }
 }

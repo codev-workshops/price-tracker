@@ -44,8 +44,7 @@ ext {
     loggingInterceptorVersion = '4.12.0'
     daggerVersion = '2.52'
     gsonConverterVersion = '2.11.0'
-    rxKotlinVersion = '2.4.0'
-    rxAndroidVersion = '2.1.1'
+
     coilVersion = '2.7.0'
     firebaseMessagingVersion = '24.1.0'
     espressoVersion = '3.6.1'

@@ -111,15 +111,13 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$rootProject.ext.retrofitVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.ext.loggingInterceptorVersion"
     implementation "com.squareup.retrofit2:converter-gson:$rootProject.ext.gsonConverterVersion"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.ext.retrofitVersion"
-
     // Hilt
     implementation "com.google.dagger:hilt-android:$rootProject.ext.daggerVersion"
     kapt "com.google.dagger:hilt-compiler:$rootProject.ext.daggerVersion"
 
-    // Rx
-    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.ext.rxAndroidVersion"
-    implementation "io.reactivex.rxjava2:rxkotlin:$rootProject.ext.rxKotlinVersion"
+    // Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0'
 
     // Tools
     implementation "io.coil-kt:coil:$rootProject.ext.coilVersion"

@@ -2,22 +2,17 @@ package com.raqun.android.ui.main.notifications
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.raqun.android.data.DataBean
 import com.raqun.android.data.source.UserRepository
 import com.raqun.android.model.Notification
 import com.raqun.android.model.Page
 import com.raqun.android.model.UiDataBean
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.rxkotlin.subscribeBy
+import com.raqun.android.extensions.getError
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 import dagger.hilt.android.lifecycle.HiltViewModel
-import com.raqun.android.data.Error
-import com.raqun.android.extensions.getError
-import io.reactivex.schedulers.Schedulers
 
-/**
- * Created by tyln on 31/07/2017.
- */
 @HiltViewModel
 class NotificationsViewModel @Inject constructor(private val userRepository: UserRepository) : ViewModel() {
 
@@ -32,21 +27,16 @@ class NotificationsViewModel @Inject constructor(private val userRepository: Use
     fun isUserLoggedIn() = userRepository.isUserLoggedIn()
 
     private fun fetchNotifications() {
-        if (!isUserLoggedIn()) {
-            return
-        }
+        if (!isUserLoggedIn()) return
 
         notificationsLiveData.value = UiDataBean.fetching(null)
-        userRepository.getNotifications(Page())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribeBy(
-                        onSuccess = {
-                            notificationsLiveData.value = UiDataBean.success(it.items)
-                        },
-                        onError = {
-                            notificationsLiveData.value = UiDataBean.error(null, it.getError())
-                        }
-                )
+        viewModelScope.launch {
+            try {
+                val result = userRepository.getNotifications(Page())
+                notificationsLiveData.value = UiDataBean.success(result.items)
+            } catch (e: Exception) {
+                notificationsLiveData.value = UiDataBean.error(null, e.getError())
+            }
+        }
     }
 }

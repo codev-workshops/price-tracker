@@ -7,58 +7,49 @@ import com.raqun.android.api.request.RegisterTokenRequest
 import com.raqun.android.api.request.RegisterRequest
 import com.raqun.android.api.response.DefaultResponse
 import com.raqun.android.api.response.PagedResponse
-import io.reactivex.Completable
-import io.reactivex.Single
 import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.POST
 import retrofit2.http.FormUrlEncoded
 
-
-/**
- * Created by tyln on 22/07/2017.
- */
 interface RaqunServices {
 
-    // USER END POINTS
     @FormUrlEncoded
     @POST("token")
-    fun auth(@Field("username") username: String,
-             @Field("password") password: String,
-             @Field("grant_type") grantType: String): Single<User>
+    suspend fun auth(@Field("username") username: String,
+                     @Field("password") password: String,
+                     @Field("grant_type") grantType: String): User
 
     @POST("Register")
-    fun registerUser(@Body registerRequest: RegisterRequest): Completable
+    suspend fun registerUser(@Body registerRequest: RegisterRequest)
 
     @POST("Logout")
-    fun logout(): Completable
+    suspend fun logout()
 
     @POST("Notification")
-    fun getNotifications(@Body page: Page): Single<DefaultResponse<PagedResponse<Notification>>>
+    suspend fun getNotifications(@Body page: Page): DefaultResponse<PagedResponse<Notification>>
 
     @POST("SaveDevice")
-    fun registerToken(@Body registerTokenRequest: RegisterTokenRequest): Completable
+    suspend fun registerToken(@Body registerTokenRequest: RegisterTokenRequest)
 
-    // PRODUCT ENDPOINTS
     @POST("Featured/RecentFollowedProducts")
-    fun getRecentFollowedProducts(@Body page: Page): Single<DefaultResponse<PagedResponse<Product>>>
+    suspend fun getRecentFollowedProducts(@Body page: Page): DefaultResponse<PagedResponse<Product>>
 
     @POST("Featured/TopFollowedProducts")
-    fun getTopFollowedProducts(@Body page: Page): Single<DefaultResponse<PagedResponse<Product>>>
+    suspend fun getTopFollowedProducts(@Body page: Page): DefaultResponse<PagedResponse<Product>>
 
     @POST("Featured/DiscountedProducts")
-    fun getDiscountedProducts(@Body page: Page): Single<DefaultResponse<PagedResponse<Product>>>
+    suspend fun getDiscountedProducts(@Body page: Page): DefaultResponse<PagedResponse<Product>>
 
     @POST("WebSite")
-    fun getTopWebApps(@Body page: Page): Single<DefaultResponse<PagedResponse<WebApp>>>
+    suspend fun getTopWebApps(@Body page: Page): DefaultResponse<PagedResponse<WebApp>>
 
     @POST("UserProduct")
-    fun getFavoriteProducts(@Body page: Page): Single<DefaultResponse<PagedResponse<Product>>>
+    suspend fun getFavoriteProducts(@Body page: Page): DefaultResponse<PagedResponse<Product>>
 
     @POST("UserProduct/Add")
-    fun addProduct(@Body addProductRequest: AddProductRequest): Completable
+    suspend fun addProduct(@Body addProductRequest: AddProductRequest)
 
     @POST("Alarm")
-    fun getAlarms(@Body alarmRequest: AlarmRequest): Single<DefaultResponse<PagedResponse<Alarm>>>
-
+    suspend fun getAlarms(@Body alarmRequest: AlarmRequest): DefaultResponse<PagedResponse<Alarm>>
 }

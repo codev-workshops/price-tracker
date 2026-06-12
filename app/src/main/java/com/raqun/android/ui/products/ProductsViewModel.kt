@@ -2,6 +2,7 @@ package com.raqun.android.ui.products
 
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.raqun.android.data.source.ProductRepository
 import com.raqun.android.extensions.getError
 import com.raqun.android.model.Page
@@ -10,16 +11,10 @@ import com.raqun.android.model.ProductListType
 import com.raqun.android.model.UiDataBean
 import com.raqun.android.api.response.PagedResponse
 import com.raqun.android.data.DataBean
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 import dagger.hilt.android.lifecycle.HiltViewModel
 
-/**
- * Created by tyln on 02/10/2017.
- */
 @HiltViewModel
 class ProductsViewModel @Inject constructor(private val productRepository: ProductRepository) : ViewModel() {
 
@@ -29,43 +24,23 @@ class ProductsViewModel @Inject constructor(private val productRepository: Produ
     fun getProducts() = products
 
     fun setProductType(productListType: ProductListType) {
-
-        if (productType != null) {
-            return
-        }
-
+        if (productType != null) return
         this.productType = productListType
 
         products.value = UiDataBean.fetching(null)
-        getProductsObservable()?.let {
-            it.observeOn(AndroidSchedulers.mainThread())
-                    .subscribeOn(Schedulers.io())
-                    .subscribeBy(
-                            onSuccess = {
-                                products.value = UiDataBean.success(it.items)
-                            },
-
-                            onError = {
-                                products.value = UiDataBean.error(null, it.getError())
-                            }
-                    )
-        }
-    }
-
-    private fun getProductsObservable(): Single<PagedResponse<Product>>? {
-        val page = Page(0, 15)
-
-        productType?.let {
-            return when (productType) {
-                ProductListType.TOP -> productRepository.getTopFollowedProducts(page)
-                ProductListType.RECENT -> productRepository.getRecentFollowedProducts(page)
-                ProductListType.DISCOUNT -> productRepository.getDiscountedProducts(page)
-                else -> {
-                    null
+        viewModelScope.launch {
+            try {
+                val page = Page(0, 15)
+                val result: PagedResponse<Product> = when (productListType) {
+                    ProductListType.TOP -> productRepository.getTopFollowedProducts(page)
+                    ProductListType.RECENT -> productRepository.getRecentFollowedProducts(page)
+                    ProductListType.DISCOUNT -> productRepository.getDiscountedProducts(page)
+                    ProductListType.FAV -> productRepository.getRecentFollowedProducts(page)
                 }
+                products.value = UiDataBean.success(result.items)
+            } catch (e: Exception) {
+                products.value = UiDataBean.error(null, e.getError())
             }
         }
-
-        return null
     }
 }

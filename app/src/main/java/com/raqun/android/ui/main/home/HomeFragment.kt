@@ -27,13 +27,13 @@ class HomeFragment : BinderFragment<FragmentHomeBinding, HomeViewModel>(), HomeV
             (activity as FabProvider).showFab()
         }
 
-        viewModel.getTop().observeApi(this, { bean -> binding.topProductsBean = bean })
+        viewModel.getTopFollowedProducts().observeApi(this, { bean -> binding.topProductsBean = bean })
 
-        viewModel.getRecent().observeApi(this, { bean -> binding.recentProductsBean = bean })
+        viewModel.getRecentFollowedProducts().observeApi(this, { bean -> binding.recentProductsBean = bean })
 
-        viewModel.getDiscounted().observeApi(this, { bean -> binding.discountedProductsBean = bean })
+        viewModel.getDiscountedProducts().observeApi(this, { bean -> binding.discountedProductsBean = bean })
 
-        viewModel.getApps().observeApi(this, { bean -> binding.topFollowedAppsBean = bean })
+        viewModel.getTopWebApps().observeApi(this, { bean -> binding.topFollowedAppsBean = bean })
     }
 
     override fun initView() {

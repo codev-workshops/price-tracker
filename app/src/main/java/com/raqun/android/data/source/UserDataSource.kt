@@ -6,25 +6,13 @@ import com.raqun.android.model.Product
 import com.raqun.android.model.User
 import com.raqun.android.api.request.RegisterRequest
 import com.raqun.android.api.response.PagedResponse
-import io.reactivex.Completable
-import io.reactivex.Single
 
-/**
- * Created by tyln on 07/08/2017.
- */
 interface UserDataSource {
-
     fun getUserCredentials(): User?
-
-    fun saveUser(registerRequest: RegisterRequest): Completable
-
-    fun login(userName: String, password: String): Single<User>
-
-    fun logout(): Completable
-
+    suspend fun saveUser(registerRequest: RegisterRequest)
+    suspend fun login(userName: String, password: String): User
+    suspend fun logout()
     fun contact(messageType: Int, message: String)
-
-    fun getNotifications(page: Page): Single<PagedResponse<Notification>>
-
-    fun getFavoriteProducts(page: Page): Single<PagedResponse<Product>>
+    suspend fun getNotifications(page: Page): PagedResponse<Notification>
+    suspend fun getFavoriteProducts(page: Page): PagedResponse<Product>
 }

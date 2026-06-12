@@ -1,26 +1,18 @@
 package com.raqun.android.ui.main.favorites
 
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import android.util.Log
-import com.raqun.android.RaqunApp
+import androidx.lifecycle.viewModelScope
 import com.raqun.android.data.DataBean
-import com.raqun.android.data.Error
 import com.raqun.android.data.source.UserRepository
 import com.raqun.android.extensions.getError
 import com.raqun.android.model.Page
 import com.raqun.android.model.Product
 import com.raqun.android.model.UiDataBean
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 import dagger.hilt.android.lifecycle.HiltViewModel
 
-/**
- * Created by tyln on 31/07/2017.
- */
 @HiltViewModel
 class FavoritesViewModel @Inject constructor(private val userRepository: UserRepository) : ViewModel() {
 
@@ -35,21 +27,16 @@ class FavoritesViewModel @Inject constructor(private val userRepository: UserRep
     fun getProducts() = products
 
     private fun getFavoriteProducts() {
-        if (!isUserLoggedIn()) {
-            return
-        }
+        if (!isUserLoggedIn()) return
 
         products.value = UiDataBean.fetching(null)
-        userRepository.getFavoriteProducts(Page(0, 15))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeBy(
-                        onSuccess = {
-                            products.value = UiDataBean.success(it.items)
-                        },
-                        onError = {
-                            products.value = UiDataBean.error(null, it.getError())
-                        }
-                )
+        viewModelScope.launch {
+            try {
+                val result = userRepository.getFavoriteProducts(Page(0, 15))
+                products.value = UiDataBean.success(result.items)
+            } catch (e: Exception) {
+                products.value = UiDataBean.error(null, e.getError())
+            }
+        }
     }
 }

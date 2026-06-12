@@ -1,6 +1,6 @@
 package com.raqun.android.binding
 
-import android.databinding.BindingConversion
+import androidx.databinding.BindingConversion
 import android.view.View
 import com.raqun.android.data.DataBean
 import com.raqun.android.data.DataState
@@ -8,7 +8,7 @@ import com.raqun.android.data.DataState
 /**
  * Created by tyln on 03/08/2017.
  */
-object BindingConversion {
+object BindingConversions {
 
     @JvmStatic
     @BindingConversion

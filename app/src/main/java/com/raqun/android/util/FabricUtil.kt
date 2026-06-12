@@ -1,7 +1,5 @@
 package com.raqun.android.util
 
-import com.crashlytics.android.answers.Answers
-import com.crashlytics.android.answers.CustomEvent
 import com.raqun.android.data.DataState
 
 /**
@@ -14,11 +12,8 @@ object FabricUtil {
     const val KEY_URL = "url"
 }
 
-
-fun Answers.reportAddProduct(dataState: DataState, url: String) {
-    logCustom(CustomEvent(FabricUtil.EVENT_ADD_PRODUCT).apply {
-        putCustomAttribute(FabricUtil.KEY_RESULT, dataState.name)
-        putCustomAttribute(FabricUtil.KEY_URL, url)
-    })
+object AnalyticsHelper {
+    fun reportAddProduct(dataState: DataState, url: String) {
+        // No-op: Fabric/Crashlytics removed; replace with your analytics provider
+    }
 }
-

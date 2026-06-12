@@ -1,6 +1,6 @@
 package com.raqun.android.ui.content
 
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.os.Bundle
 import android.util.Log
 import com.raqun.android.R
@@ -28,6 +28,7 @@ class ContentFragment : BinderFragment<FragmentContentBinding, ContentViewModel>
         }
     }
 
+    @Suppress("DEPRECATION")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel.getContentLiveData().observe(this, Observer { bean: DataBean<Content>? ->

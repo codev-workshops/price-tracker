@@ -2,21 +2,16 @@ package com.raqun.android.ui
 
 import android.app.Activity
 import android.content.Context
-import android.support.annotation.IdRes
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
+import androidx.annotation.IdRes
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.raqun.android.R
 import com.raqun.android.ui.login.LoginActivity
 import com.raqun.android.ui.main.MainActivity
 import com.raqun.android.ui.register.RegisterActivity
-import android.support.v4.content.IntentCompat
 import android.content.Intent
 import android.net.Uri
-import android.support.annotation.LayoutRes
-import android.support.transition.Fade
-import android.support.transition.Transition
-import android.support.v4.app.FragmentTransaction
-import android.support.v4.content.ContextCompat.startActivity
+import androidx.annotation.LayoutRes
 import com.raqun.android.RaqunApp
 import com.raqun.android.model.NotificationType
 import com.raqun.android.model.Product
@@ -28,8 +23,7 @@ import com.raqun.android.ui.content.ContentActivity
 import com.raqun.android.ui.logout.LogoutActivity
 import com.raqun.android.ui.product.ProductActivity
 import com.raqun.android.ui.products.ProductsActivity
-import io.reactivex.rxkotlin.toMaybe
-import retrofit2.http.Body
+
 
 
 /**

@@ -1,7 +1,7 @@
 package com.raqun.android.ui.products
 
-import android.arch.lifecycle.MediatorLiveData
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.ViewModel
 import com.raqun.android.data.source.ProductRepository
 import com.raqun.android.extensions.getError
 import com.raqun.android.model.Page

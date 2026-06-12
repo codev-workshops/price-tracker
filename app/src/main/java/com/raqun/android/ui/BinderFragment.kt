@@ -1,15 +1,13 @@
 package com.raqun.android.ui
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import java.lang.reflect.ParameterizedType
 import javax.inject.Inject
 
 /**
@@ -25,16 +23,16 @@ abstract class BinderFragment<VB : ViewDataBinding, VM : ViewModel> : BaseFragme
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProviders.of(this, vmFactory).get(getModelClass())
+        viewModel = ViewModelProvider(this, vmFactory).get(getModelClass())
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, getLayoutRes(), container, false)
         initView()
         return binding.root
     }
 
-    open protected fun initView() {
+    protected open fun initView() {
         // Can be overridden from subclasses
     }
 }

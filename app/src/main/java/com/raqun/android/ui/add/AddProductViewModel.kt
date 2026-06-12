@@ -1,7 +1,7 @@
 package com.raqun.android.ui.add
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.raqun.android.data.source.ProductRepository
 import com.raqun.android.data.source.UserRepository
 import com.raqun.android.extensions.getError

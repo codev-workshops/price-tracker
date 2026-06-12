@@ -1,6 +1,6 @@
 package com.raqun.android.ui.contact
 
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.ViewModel
 import com.raqun.android.data.source.UserRepository
 import javax.inject.Inject
 

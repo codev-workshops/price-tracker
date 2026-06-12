@@ -4,7 +4,7 @@ package com.raqun.android.di
  * Created by tyln on 26/07/2017.
  */
 
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.ViewModel
 
 import dagger.MapKey
 import kotlin.reflect.KClass

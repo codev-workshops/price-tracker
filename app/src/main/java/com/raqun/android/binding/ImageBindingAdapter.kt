@@ -1,6 +1,6 @@
 package com.raqun.android.binding
 
-import android.databinding.BindingAdapter
+import androidx.databinding.BindingAdapter
 import android.widget.ImageView
 import com.raqun.android.R
 import com.raqun.android.extensions.loadImage

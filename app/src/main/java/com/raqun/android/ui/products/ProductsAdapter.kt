@@ -1,6 +1,6 @@
 package com.raqun.android.ui.products
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.raqun.android.databinding.ItemProductsGridBinding
@@ -13,12 +13,12 @@ class ProductsAdapter(private val products: List<Product>,
                       private val itemClick: (product: Product) -> Unit)
     : RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
-        val layoutInflater = LayoutInflater.from(parent?.context)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
         return ViewHolder(ItemProductsGridBinding.inflate(layoutInflater, parent, false))
     }
 
-    override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder?.let {
             val product = products[position]
             it.bind(product)

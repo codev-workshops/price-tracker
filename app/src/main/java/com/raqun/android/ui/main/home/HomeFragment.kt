@@ -1,7 +1,7 @@
 package com.raqun.android.ui.main.home
 
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.raqun.android.R
 import com.raqun.android.databinding.FragmentHomeBinding
 import com.raqun.android.extensions.observeApi
@@ -19,6 +19,7 @@ class HomeFragment : BinderFragment<FragmentHomeBinding, HomeViewModel>(), HomeV
 
     override fun getLayoutRes(): Int = R.layout.fragment_home
 
+    @Suppress("DEPRECATION")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -38,10 +39,10 @@ class HomeFragment : BinderFragment<FragmentHomeBinding, HomeViewModel>(), HomeV
     override fun initView() {
         binding.homeView = this
         binding.navigator = navigationController
-        binding.recyclerviewTop?.setup(activity, LinearLayoutManager.HORIZONTAL)
-        binding.recyclerviewRecent?.setup(activity, LinearLayoutManager.HORIZONTAL)
-        binding.recyclerviewDiscount?.setup(activity, LinearLayoutManager.HORIZONTAL)
-        binding.recyclerviewApps?.setup(activity, LinearLayoutManager.HORIZONTAL)
+        binding.recyclerviewTop?.setup(requireActivity(), LinearLayoutManager.HORIZONTAL)
+        binding.recyclerviewRecent?.setup(requireActivity(), LinearLayoutManager.HORIZONTAL)
+        binding.recyclerviewDiscount?.setup(requireActivity(), LinearLayoutManager.HORIZONTAL)
+        binding.recyclerviewApps?.setup(requireActivity(), LinearLayoutManager.HORIZONTAL)
     }
 
     override fun onMoreTopClicked() {

@@ -16,7 +16,7 @@
 
     </data>
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/alarms"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

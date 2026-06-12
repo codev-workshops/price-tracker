@@ -5,7 +5,8 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.media.RingtoneManager
-import android.support.v4.app.NotificationCompat
+import android.os.Build
+import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.raqun.android.R
@@ -18,40 +19,33 @@ import com.raqun.android.ui.product.ProductActivity
  * Created by tyln on 24/10/2017.
  */
 class MyFcmService : FirebaseMessagingService() {
-    override fun onMessageReceived(remoteMessage: RemoteMessage?) {
-        if (remoteMessage != null) {
-            if (getString(R.string.gcm_defaultSenderId) == remoteMessage.from) {
-                remoteMessage.notification?.let {
-                    var intent = MainActivity.newIntent(this)
-                    if (remoteMessage.data?.size!! > 0) {
-                        val payload = remoteMessage.data
-                        val intentFactory: NavigationController.IntentFactory
-                                = NavigationController.DefaultIntentFactory(this)
-                        intent = intentFactory.createNotificationIntent(payload["notification_type"]!!.toInt(),
-                                payload["key"])
-                    }
-
-                    val title = if (it.title == null) {
-                        getString(R.string.app_name)
-                    } else {
-                        it.title
-                    }
-
-                    val message = if (it.body == null) {
-                        getString(R.string.notification_default_message)
-                    } else {
-                        it.body
-                    }
-
-                    showNotification(title, message, intent)
+    override fun onMessageReceived(remoteMessage: RemoteMessage) {
+        if (getString(R.string.gcm_defaultSenderId) == remoteMessage.from) {
+            remoteMessage.notification?.let {
+                var intent = MainActivity.newIntent(this)
+                if (remoteMessage.data.isNotEmpty()) {
+                    val payload = remoteMessage.data
+                    val intentFactory: NavigationController.IntentFactory
+                            = NavigationController.DefaultIntentFactory(this)
+                    intent = intentFactory.createNotificationIntent(payload["notification_type"]!!.toInt(),
+                            payload["key"])
                 }
+
+                val title = it.title ?: getString(R.string.app_name)
+                val message = it.body ?: getString(R.string.notification_default_message)
+
+                showNotification(title, message, intent)
             }
         }
     }
 
     private fun showNotification(title: String?, message: String?, intent: Intent) {
-        val pendingIntent = PendingIntent.getActivity(this,
-                0, intent, PendingIntent.FLAG_ONE_SHOT)
+        val flags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
+        } else {
+            PendingIntent.FLAG_ONE_SHOT
+        }
+        val pendingIntent = PendingIntent.getActivity(this, 0, intent, flags)
         val channelId = "raqun"
         val soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager

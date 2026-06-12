@@ -8,10 +8,12 @@ import com.raqun.android.data.DataBean
 import com.raqun.android.model.Product
 import com.raqun.android.model.UiDataBean
 import javax.inject.Inject
+import dagger.hilt.android.lifecycle.HiltViewModel
 
 /**
  * Created by tyln on 06/11/2017.
  */
+@HiltViewModel
 class DetailViewModel @Inject constructor() : ViewModel() {
 
     private val productLiveData = MediatorLiveData<DataBean<Product>>()

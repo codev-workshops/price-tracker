@@ -2,20 +2,18 @@ package com.raqun.android.ui.add
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.raqun.android.data.source.ProductRepository
 import com.raqun.android.data.source.UserRepository
 import com.raqun.android.extensions.getError
 import com.raqun.android.model.UiDataBean
 import com.raqun.android.api.request.AddProductRequest
 import com.raqun.android.data.DataBean
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
+import dagger.hilt.android.lifecycle.HiltViewModel
 
-/**
- * Created by tyln on 18/09/2017.
- */
+@HiltViewModel
 class AddProductViewModel @Inject constructor(private val productRepository: ProductRepository,
                                               private val userRepository: UserRepository)
     : ViewModel() {
@@ -28,16 +26,13 @@ class AddProductViewModel @Inject constructor(private val productRepository: Pro
 
     fun addProduct(url: String) {
         addProduct.value = UiDataBean.fetching(null)
-        productRepository.addProduct(AddProductRequest(url))
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribeBy(
-                        onComplete = {
-                            addProduct.value = UiDataBean.success(true)
-                        },
-                        onError = {
-                            addProduct.value = UiDataBean.error(false, it.getError())
-                        }
-                )
+        viewModelScope.launch {
+            try {
+                productRepository.addProduct(AddProductRequest(url))
+                addProduct.value = UiDataBean.success(true)
+            } catch (e: Exception) {
+                addProduct.value = UiDataBean.error(false, e.getError())
+            }
+        }
     }
 }

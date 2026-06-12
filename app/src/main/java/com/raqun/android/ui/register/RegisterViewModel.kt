@@ -2,19 +2,17 @@ package com.raqun.android.ui.register
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.raqun.android.data.source.UserRepository
 import com.raqun.android.extensions.getError
 import com.raqun.android.model.UiDataBean
 import com.raqun.android.api.request.RegisterRequest
 import com.raqun.android.data.DataBean
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
+import dagger.hilt.android.lifecycle.HiltViewModel
 
-/**
- * Created by tyln on 07/08/2017.
- */
+@HiltViewModel
 class RegisterViewModel @Inject constructor(private val userRepository: UserRepository) : ViewModel() {
 
     private val registerLiveData = MutableLiveData<DataBean<Boolean>>()
@@ -25,24 +23,15 @@ class RegisterViewModel @Inject constructor(private val userRepository: UserRepo
 
     fun register(email: String, fullName: String, contactPermission: Boolean,
                  userName: String, password: String) {
-
-        val registerRequest = RegisterRequest(email,
-                fullName,
-                contactPermission,
-                userName,
-                password)
-
+        val registerRequest = RegisterRequest(email, fullName, contactPermission, userName, password)
         registerLiveData.postValue(UiDataBean.fetching(null))
-        userRepository.saveUser(registerRequest)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribeBy(
-                        onComplete = {
-                            registerLiveData.value = UiDataBean.success(true)
-                        },
-                        onError = {
-                            registerLiveData.value = UiDataBean.error(false, it.getError())
-                        }
-                )
+        viewModelScope.launch {
+            try {
+                userRepository.saveUser(registerRequest)
+                registerLiveData.value = UiDataBean.success(true)
+            } catch (e: Exception) {
+                registerLiveData.value = UiDataBean.error(false, e.getError())
+            }
+        }
     }
 }

@@ -6,25 +6,22 @@ import com.raqun.android.api.DefaultRequestInterceptor
 import com.raqun.android.api.RaqunServices
 import dagger.Module
 import dagger.Provides
-import okhttp3.Interceptor
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-import javax.inject.Named
 import javax.inject.Singleton
 
-/**
- * Created by tyln on 22/07/2017.
- */
 @Module
-internal class ApiModule {
+@InstallIn(SingletonComponent::class)
+object ApiModule {
 
-    @Provides @Singleton @Named("url") fun provideBaseUrl(): String = BuildConfig.BASE_URL
+    @Provides @Singleton fun provideBaseUrl(): String = BuildConfig.BASE_URL
 
-    @Provides @Singleton fun provideRequestInterceptor(): Interceptor
+    @Provides @Singleton fun provideRequestInterceptor(): DefaultRequestInterceptor
             = DefaultRequestInterceptor()
 
     @Provides @Singleton fun provideLoggingInterceptor(): HttpLoggingInterceptor {
@@ -41,12 +38,11 @@ internal class ApiModule {
         }
     }
 
-    @Provides @Singleton fun provideRetrofit(@Named("url") baseUrl: String, client: OkHttpClient): Retrofit {
+    @Provides @Singleton fun provideRetrofit(baseUrl: String, client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
     }
 

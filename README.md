@@ -1,15 +1,15 @@
 # price-tracker
 Price Tracking Application
 
-This is a Kotlin Android project modernized to current AndroidX / Gradle tooling.
+This is a Kotlin Android project modernized to current AndroidX / Jetpack tooling.
 
 ## Prerequisites
 
 | Tool | Version |
 |------|---------|
 | JDK | 17 (OpenJDK) |
-| Android SDK | Platform 33, Build-tools 33.0.2 |
-| Gradle | 7.6 (wrapper included) |
+| Android SDK | Platform 35, Build-tools 35.0.0 |
+| Gradle | 8.7 (wrapper included) |
 
 ## Setup
 
@@ -19,7 +19,7 @@ export ANDROID_HOME=/path/to/android-sdk
 export JAVA_HOME=/path/to/java-17
 
 # Install SDK components (if needed)
-sdkmanager "platforms;android-33" "build-tools;33.0.2" "platform-tools"
+sdkmanager "platforms;android-35" "build-tools;35.0.0" "platform-tools"
 
 # Create local.properties
 echo "sdk.dir=$ANDROID_HOME" > local.properties
@@ -41,25 +41,27 @@ echo "sdk.dir=$ANDROID_HOME" > local.properties
 
 ## Tech Stack
 
-* **Language**: Kotlin 1.8.22
-* **Build**: AGP 7.4.2, Gradle 7.6
-* **Architecture**: MVVM with AndroidX Lifecycle + ViewModelProvider
-* **DI**: Dagger 2.48 (android-support with `HasAndroidInjector`)
-* **Networking**: Retrofit 2.9 + OkHttp 4.11 + RxJava2
-* **UI**: Data Binding, Material Design, Bottom Navigation, CoordinatorLayout
-* **Firebase**: Cloud Messaging 23.2.1
-* **Min SDK**: 21 / **Target SDK**: 33
+* **Language**: Kotlin 2.0.21
+* **Build**: AGP 8.5.0, Gradle 8.7
+* **Architecture**: MVVM with Jetpack Lifecycle, Hilt DI, Jetpack Navigation
+* **DI**: Hilt 2.52 (`@AndroidEntryPoint`, `@HiltViewModel`)
+* **Networking**: Retrofit 2.11.0 + OkHttp 4.12.0 + Kotlin Coroutines 1.9.0
+* **UI**: Hybrid — XML Data Binding + Jetpack Compose (Material3)
+* **Navigation**: Jetpack Navigation 2.8.4 (main tabs via NavHostFragment)
+* **Image Loading**: Coil 2.7.0 (coil-compose for Compose screens)
+* **Firebase**: Cloud Messaging 24.1.0
+* **Min SDK**: 24 / **Target SDK**: 35
 
-## Modernization Notes
+## Modernization History
 
-This project was migrated from a 2017-era Android setup:
-- `android.support.*` → `androidx.*`
-- `android.arch.lifecycle.*` → `androidx.lifecycle.*`
-- Dagger `HasActivityInjector` / `HasSupportFragmentInjector` → `HasAndroidInjector`
-- `ViewModelProviders.of()` → `ViewModelProvider()`
-- Fabric / Crashlytics removed (replaced with no-op stubs)
-- Firebase Cloud Messaging updated to modern API
-- Fragment / RecyclerView nullable parameter signatures updated
+This project was migrated from a 2017-era Android setup through multiple phases:
+- **Phase 1**: Build system — AGP 3.0 → 8.5.0, Kotlin 1.1 → 2.0.21, Gradle 4.x → 8.7, SDK 26 → 35
+- **Phase 2**: AndroidX — `android.support.*` → `androidx.*`, `android.arch.lifecycle.*` → `androidx.lifecycle.*`
+- **Phase 3**: Libraries — Picasso → Coil, Fabric → Firebase Crashlytics, Retrofit/OkHttp bump
+- **Phase 4**: DI — Dagger 2.x → Hilt 2.52
+- **Phase 5**: Async — RxJava2 → Kotlin Coroutines
+- **Phase 6**: Navigation — Activity-based → Jetpack Navigation (main tabs)
+- **Phase 7**: UI — Jetpack Compose screens added alongside existing XML layouts
 
 ## Screenshots
 

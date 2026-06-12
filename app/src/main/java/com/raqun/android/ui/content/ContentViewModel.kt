@@ -2,20 +2,17 @@ package com.raqun.android.ui.content
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.raqun.android.data.DataBean
-import com.raqun.android.data.Error
 import com.raqun.android.data.source.ResourceRepository
 import com.raqun.android.extensions.getError
 import com.raqun.android.model.Content
 import com.raqun.android.model.UiDataBean
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
+import dagger.hilt.android.lifecycle.HiltViewModel
 
-/**
- * Created by tyln on 26/08/2017.
- */
+@HiltViewModel
 class ContentViewModel @Inject constructor(private val resourceRepository: ResourceRepository)
     : ViewModel() {
 
@@ -31,14 +28,13 @@ class ContentViewModel @Inject constructor(private val resourceRepository: Resou
         }
 
         this.contentId = contentId
-        resourceRepository.getContent(this.contentId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeBy(
-                        onSuccess = {
-                            contentLiveData.value = UiDataBean.success(it)
-                        },
-                        onError = { UiDataBean.error(null, it.getError()) }
-                )
+        viewModelScope.launch {
+            try {
+                val content = resourceRepository.getContent(contentId)
+                contentLiveData.value = UiDataBean.success(content)
+            } catch (e: Exception) {
+                contentLiveData.value = UiDataBean.error(null, e.getError())
+            }
+        }
     }
 }

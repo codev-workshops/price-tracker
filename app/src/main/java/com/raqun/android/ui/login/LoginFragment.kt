@@ -1,5 +1,6 @@
 package com.raqun.android.ui.login
 
+import dagger.hilt.android.AndroidEntryPoint
 import android.app.ProgressDialog
 import androidx.lifecycle.Observer
 import android.os.Bundle
@@ -18,6 +19,7 @@ import com.raqun.android.extensions.init
  */
 
 
+@AndroidEntryPoint
 class LoginFragment : BinderFragment<FragmentLoginBinding, LoginViewModel>(), LoginView {
 
     private lateinit var loginProgressDialog: ProgressDialog

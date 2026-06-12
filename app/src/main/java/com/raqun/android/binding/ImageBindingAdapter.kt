@@ -2,13 +2,8 @@ package com.raqun.android.binding
 
 import androidx.databinding.BindingAdapter
 import android.widget.ImageView
-import com.raqun.android.R
 import com.raqun.android.extensions.loadImage
-import com.squareup.picasso.Picasso
 
-/**
- * Created by tyln on 02/08/2017.
- */
 object ImageBindingAdapter {
 
     @JvmStatic

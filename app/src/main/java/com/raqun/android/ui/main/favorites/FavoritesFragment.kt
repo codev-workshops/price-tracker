@@ -1,5 +1,6 @@
 package com.raqun.android.ui.main.favorites
 
+import dagger.hilt.android.AndroidEntryPoint
 import androidx.lifecycle.Observer
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
@@ -17,6 +18,7 @@ import com.raqun.android.ui.view.AuthView
 /**
  * Created by tyln on 31/07/2017.
  */
+@AndroidEntryPoint
 class FavoritesFragment : BinderFragment<FragmentFavoritesBinding, FavoritesViewModel>(),
         AuthView {
 

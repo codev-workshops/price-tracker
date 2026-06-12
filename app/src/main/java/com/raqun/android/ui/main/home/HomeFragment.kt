@@ -1,5 +1,6 @@
 package com.raqun.android.ui.main.home
 
+import dagger.hilt.android.AndroidEntryPoint
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.raqun.android.R
@@ -13,6 +14,7 @@ import com.raqun.android.ui.main.FabProvider
 /**
  * Created by tyln on 29/07/2017.
  */
+@AndroidEntryPoint
 class HomeFragment : BinderFragment<FragmentHomeBinding, HomeViewModel>(), HomeView {
 
     override fun getModelClass(): Class<HomeViewModel> = HomeViewModel::class.java
@@ -27,13 +29,13 @@ class HomeFragment : BinderFragment<FragmentHomeBinding, HomeViewModel>(), HomeV
             (activity as FabProvider).showFab()
         }
 
-        viewModel.getTop().observeApi(this, { bean -> binding.topProductsBean = bean })
+        viewModel.getTopFollowedProducts().observeApi(this, { bean -> binding.topProductsBean = bean })
 
-        viewModel.getRecent().observeApi(this, { bean -> binding.recentProductsBean = bean })
+        viewModel.getRecentFollowedProducts().observeApi(this, { bean -> binding.recentProductsBean = bean })
 
-        viewModel.getDiscounted().observeApi(this, { bean -> binding.discountedProductsBean = bean })
+        viewModel.getDiscountedProducts().observeApi(this, { bean -> binding.discountedProductsBean = bean })
 
-        viewModel.getApps().observeApi(this, { bean -> binding.topFollowedAppsBean = bean })
+        viewModel.getTopWebApps().observeApi(this, { bean -> binding.topFollowedAppsBean = bean })
     }
 
     override fun initView() {

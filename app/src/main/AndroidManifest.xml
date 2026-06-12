@@ -52,16 +52,6 @@
             </intent-filter>
         </service>
 
-        <service android:name=".fcm.MyFcmInstanceIdService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-            </intent-filter>
-        </service>
-
-        <service android:name=".fcm.RegisterTokenService"
-            android:exported="false" />
-
         <!-- Fcm Meta Data -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"

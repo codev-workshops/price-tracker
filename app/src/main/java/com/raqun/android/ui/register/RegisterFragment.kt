@@ -1,5 +1,6 @@
 package com.raqun.android.ui.register
 
+import dagger.hilt.android.AndroidEntryPoint
 import android.app.ProgressDialog
 import androidx.lifecycle.Observer
 import android.os.Bundle
@@ -16,6 +17,7 @@ import com.raqun.android.extensions.init
 /**
  * Created by tyln on 07/08/2017.
  */
+@AndroidEntryPoint
 class RegisterFragment : BinderFragment<FragmentRegisterBinding, RegisterViewModel>(),
         RegisterView {
 

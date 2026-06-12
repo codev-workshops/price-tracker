@@ -1,5 +1,6 @@
 package com.raqun.android.ui.logout
 
+import dagger.hilt.android.AndroidEntryPoint
 import androidx.lifecycle.Observer
 import android.os.Bundle
 import android.view.View
@@ -10,6 +11,7 @@ import com.raqun.android.ui.BinderFragment
 /**
  * Created by tyln on 23/08/2017.
  */
+@AndroidEntryPoint
 class LogoutFragment : BinderFragment<FragmentLogoutBinding, LogoutViewModel>() {
 
     override fun getModelClass(): Class<LogoutViewModel> = LogoutViewModel::class.java

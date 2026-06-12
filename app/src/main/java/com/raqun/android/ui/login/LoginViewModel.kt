@@ -2,20 +2,17 @@ package com.raqun.android.ui.login
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.raqun.android.data.DataBean
-import com.raqun.android.data.Error
 import com.raqun.android.data.source.UserRepository
 import com.raqun.android.extensions.getError
 import com.raqun.android.model.UiDataBean
 import com.raqun.android.model.User
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
+import dagger.hilt.android.lifecycle.HiltViewModel
 
-/**
- * Created by tyln on 07/08/2017.
- */
+@HiltViewModel
 class LoginViewModel @Inject constructor(private val userRepository: UserRepository) : ViewModel() {
 
     private val loginLiveData = MutableLiveData<DataBean<User>>()
@@ -24,17 +21,14 @@ class LoginViewModel @Inject constructor(private val userRepository: UserReposit
 
     fun login(userName: String, password: String) {
         loginLiveData.postValue(UiDataBean.fetching(null))
-        userRepository.login(userName, password)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribeBy(
-                        onSuccess = {
-                            loginLiveData.postValue(UiDataBean.success(it))
-                        },
-                        onError = {
-                            loginLiveData.postValue(UiDataBean.error(null, it.getError()))
-                        }
-                )
+        viewModelScope.launch {
+            try {
+                val user = userRepository.login(userName, password)
+                loginLiveData.value = UiDataBean.success(user)
+            } catch (e: Exception) {
+                loginLiveData.value = UiDataBean.error(null, e.getError())
+            }
+        }
     }
 
     fun getLoginLiveData() = loginLiveData

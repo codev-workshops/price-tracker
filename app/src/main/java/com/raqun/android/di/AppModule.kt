@@ -1,7 +1,6 @@
 package com.raqun.android.di
 
 import android.content.Context
-import com.raqun.android.RaqunApp
 import com.raqun.android.api.RaqunServices
 import com.raqun.android.data.source.ProductRepository
 import com.raqun.android.data.source.ResourceRepository
@@ -12,16 +11,14 @@ import com.raqun.android.data.source.remote.ProductRemoteDataSource
 import com.raqun.android.data.source.remote.UserRemoteDataSource
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-/**
- * Created by tyln on 26/07/2017.
- */
-@Module(includes = arrayOf(ViewModelModule::class))
-internal class AppModule {
-
-    @Provides @Singleton fun provideApplicationContext(raqunApp: RaqunApp)
-            = raqunApp.applicationContext
+@Module
+@InstallIn(SingletonComponent::class)
+object AppModule {
 
     @Provides @Singleton fun provideProductRemoteDataSource(raqunServices: RaqunServices): ProductRemoteDataSource
             = ProductRemoteDataSource(raqunServices)
@@ -29,7 +26,7 @@ internal class AppModule {
     @Provides @Singleton fun provideProductRepository(productRemoteDataSource: ProductRemoteDataSource): ProductRepository
             = ProductRepository(productRemoteDataSource)
 
-    @Provides @Singleton fun provideUserLocalDataSource(context: Context)
+    @Provides @Singleton fun provideUserLocalDataSource(@ApplicationContext context: Context)
             = UserLocalDataSource(context)
 
     @Provides @Singleton fun provideUserRemoteDataSource(raqunServices: RaqunServices)
@@ -39,7 +36,7 @@ internal class AppModule {
                                                    userRemoteDataSource: UserRemoteDataSource)
             = UserRepository(userLocalDataSource, userRemoteDataSource)
 
-    @Provides @Singleton fun provideResourceLocalDataSource(context: Context)
+    @Provides @Singleton fun provideResourceLocalDataSource(@ApplicationContext context: Context)
             = ResourceLocalDataSource(context)
 
     @Provides @Singleton fun provideResourceRepository(resourceLocalDataSource: ResourceLocalDataSource)

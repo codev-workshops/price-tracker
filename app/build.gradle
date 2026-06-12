@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-parcelize'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     compileSdk 35
@@ -112,10 +113,9 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$rootProject.ext.gsonConverterVersion"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.ext.retrofitVersion"
 
-    // Dagger
-    implementation "com.google.dagger:dagger-android-support:$rootProject.ext.daggerVersion"
-    kapt "com.google.dagger:dagger-compiler:$rootProject.ext.daggerVersion"
-    kapt "com.google.dagger:dagger-android-processor:$rootProject.ext.daggerVersion"
+    // Hilt
+    implementation "com.google.dagger:hilt-android:$rootProject.ext.daggerVersion"
+    kapt "com.google.dagger:hilt-compiler:$rootProject.ext.daggerVersion"
 
     // Rx
     implementation "io.reactivex.rxjava2:rxandroid:$rootProject.ext.rxAndroidVersion"

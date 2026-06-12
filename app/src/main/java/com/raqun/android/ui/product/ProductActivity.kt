@@ -5,12 +5,14 @@ import android.content.Intent
 import android.os.Bundle
 import com.raqun.android.R
 import com.raqun.android.ui.BaseActivity
+import dagger.hilt.android.AndroidEntryPoint
 import com.raqun.android.extensions.init
 import com.raqun.android.model.Product
 
 /**
  * Created by tyln on 06/09/2017.
  */
+@AndroidEntryPoint
 class ProductActivity : BaseActivity() {
 
     override fun getLayoutRes(): Int = R.layout.activity_container

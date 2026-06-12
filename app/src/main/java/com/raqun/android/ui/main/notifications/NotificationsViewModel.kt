@@ -10,6 +10,7 @@ import com.raqun.android.model.UiDataBean
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
+import dagger.hilt.android.lifecycle.HiltViewModel
 import com.raqun.android.data.Error
 import com.raqun.android.extensions.getError
 import io.reactivex.schedulers.Schedulers
@@ -17,6 +18,7 @@ import io.reactivex.schedulers.Schedulers
 /**
  * Created by tyln on 31/07/2017.
  */
+@HiltViewModel
 class NotificationsViewModel @Inject constructor(private val userRepository: UserRepository) : ViewModel() {
 
     private val notificationsLiveData = MutableLiveData<DataBean<List<Notification>>>()

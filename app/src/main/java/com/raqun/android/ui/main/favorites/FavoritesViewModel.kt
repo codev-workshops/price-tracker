@@ -8,7 +8,6 @@ import com.raqun.android.RaqunApp
 import com.raqun.android.data.DataBean
 import com.raqun.android.data.Error
 import com.raqun.android.data.source.UserRepository
-import com.raqun.android.di.ViewModelKey
 import com.raqun.android.extensions.getError
 import com.raqun.android.model.Page
 import com.raqun.android.model.Product
@@ -17,10 +16,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
+import dagger.hilt.android.lifecycle.HiltViewModel
 
 /**
  * Created by tyln on 31/07/2017.
  */
+@HiltViewModel
 class FavoritesViewModel @Inject constructor(private val userRepository: UserRepository) : ViewModel() {
 
     private val products = MutableLiveData<DataBean<List<Product>>>()

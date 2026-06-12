@@ -16,10 +16,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
+import dagger.hilt.android.lifecycle.HiltViewModel
 
 /**
  * Created by tyln on 06/11/2017.
  */
+@HiltViewModel
 class AlarmsViewModel @Inject constructor(private val productRepository: ProductRepository,
                                           private val userRepository: UserRepository)
     : ViewModel() {

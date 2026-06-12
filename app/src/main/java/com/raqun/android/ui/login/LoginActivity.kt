@@ -5,11 +5,13 @@ import android.content.Intent
 import android.os.Bundle
 import com.raqun.android.R
 import com.raqun.android.ui.BaseActivity
+import dagger.hilt.android.AndroidEntryPoint
 import com.raqun.android.extensions.init
 
 /**
  * Created by tyln on 07/08/2017.
  */
+@AndroidEntryPoint
 class LoginActivity : BaseActivity() {
 
     override fun getLayoutRes(): Int = R.layout.activity_container

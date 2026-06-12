@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import android.view.MenuItem
 import com.raqun.android.R
 import com.raqun.android.ui.BaseActivity
+import dagger.hilt.android.AndroidEntryPoint
 import com.raqun.android.ui.add.AddProductActivity
 import com.raqun.android.ui.main.favorites.FavoritesFragment
 import com.raqun.android.ui.main.home.HomeFragment
@@ -21,6 +22,7 @@ import com.raqun.android.extensions.openFragment
 import com.raqun.android.fcm.RegisterTokenService
 import com.raqun.android.ui.NavigationController
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity(), FabProvider {
 
     private var fab: FloatingActionButton? = null

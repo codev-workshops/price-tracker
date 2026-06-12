@@ -2,7 +2,7 @@ package com.raqun.android.util
 
 import android.content.Context
 import android.graphics.Canvas
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.graphics.drawable.Drawable
 import com.raqun.android.R
 

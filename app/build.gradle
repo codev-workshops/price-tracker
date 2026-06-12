@@ -1,51 +1,41 @@
-buildscript {
-    repositories {
-        maven { url 'https://maven.fabric.io/public' }
-    }
-
-    dependencies {
-        classpath 'io.fabric.tools:gradle:1.+'
-    }
-}
-
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-parcelize'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'io.fabric'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 33
+    namespace "com.raqun.android"
+
     defaultConfig {
         applicationId "com.raqun.android"
-        minSdkVersion 17
-        targetSdkVersion 26
+        minSdkVersion 21
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField('String', 'API_KEY', '"api_key_goes_here"')
         buildConfigField('int', 'CHANNEL_KEY', '1')
         vectorDrawables.useSupportLibrary = true
     }
 
-    flavorDimensions("default")
+    flavorDimensions "default"
 
     productFlavors {
         prod {
-            dimension("default")
+            dimension "default"
             buildConfigField('String', 'BASE_URL', '"http://example.com/"')
         }
 
         beta {
-            dimension("default")
+            dimension "default"
             applicationIdSuffix ".beta"
             versionNameSuffix ".beta"
             buildConfigField('String', 'BASE_URL', '"http://example.com/"')
         }
 
         dev {
-            dimension("default")
+            dimension "default"
             applicationIdSuffix ".dev"
             versionNameSuffix ".dev"
             buildConfigField('String', 'BASE_URL', '"http://example.com/"')
@@ -59,65 +49,87 @@ android {
         }
     }
 
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding true
+        buildConfig true
     }
 
     packagingOptions {
         exclude 'META-INF/rxjava.properties'
     }
 
-    androidExtensions {
-        experimental = true
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+
+    kotlin {
+        jvmToolchain(17)
+    }
+
+    lint {
+        abortOnError false
     }
 }
 
 kapt {
-    generateStubs = true
+    correctErrorTypes true
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
-    testImplementation 'junit:junit:4.12'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile "com.android.support:design:$rootProject.ext.supportLibraryVersion"
-    compile "com.android.support:recyclerview-v7:$rootProject.ext.supportLibraryVersion"
-    compile "com.android.support:cardview-v7:$rootProject.ext.supportLibraryVersion"
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    // AndroidX Core
+    implementation "androidx.core:core-ktx:$rootProject.ext.coreVersion"
+    implementation "androidx.appcompat:appcompat:$rootProject.ext.appcompatVersion"
+    implementation "androidx.fragment:fragment-ktx:$rootProject.ext.fragmentVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$rootProject.ext.constraintLayoutVersion"
+    implementation "androidx.coordinatorlayout:coordinatorlayout:$rootProject.ext.coordinatorLayoutVersion"
+    implementation "androidx.recyclerview:recyclerview:$rootProject.ext.recyclerViewVersion"
+    implementation "androidx.cardview:cardview:$rootProject.ext.cardViewVersion"
+    implementation "androidx.viewpager:viewpager:$rootProject.ext.viewPagerVersion"
+    implementation "androidx.transition:transition:$rootProject.ext.transitionVersion"
+
+    // Material Design
+    implementation "com.google.android.material:material:$rootProject.ext.materialVersion"
+
+    // Lifecycle / ViewModel
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$rootProject.ext.lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.ext.lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$rootProject.ext.lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$rootProject.ext.lifecycleVersion"
 
     // Retrofit
-    compile "com.squareup.retrofit2:retrofit:$rootProject.ext.retrofitVersion"
-    compile "com.squareup.okhttp3:logging-interceptor:$rootProject.ext.loggingInterceptorVersion"
-    compile "com.squareup.retrofit2:converter-gson:$rootProject.ext.gsonVersion"
-    compile "com.squareup.retrofit2:adapter-rxjava2:$rootProject.ext.retrofitVersion"
-    compile 'com.squareup.okhttp3:okhttp:3.8.0'
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.ext.retrofitVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.ext.loggingInterceptorVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.ext.gsonConverterVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.ext.retrofitVersion"
+    implementation 'com.squareup.okhttp3:okhttp:4.11.0'
 
     // Dagger
-    compile "com.google.dagger:dagger-android-support:$rootProject.ext.daggerVersion"
+    implementation "com.google.dagger:dagger-android-support:$rootProject.ext.daggerVersion"
     kapt "com.google.dagger:dagger-compiler:$rootProject.ext.daggerVersion"
     kapt "com.google.dagger:dagger-android-processor:$rootProject.ext.daggerVersion"
 
-    // Arch Components
-    compile "android.arch.lifecycle:runtime:$rootProject.ext.archLifecycleVersion"
-    compile "android.arch.lifecycle:extensions:$rootProject.ext.archExtensionsVersion"
-
     // Rx
-    compile "io.reactivex.rxjava2:rxandroid:2.0.1"
-    compile "io.reactivex.rxjava2:rxkotlin:$rootProject.ext.rxKotlinVersion"
-
-    // Data Binding
-    kapt "com.android.databinding:compiler:$rootProject.ext.dataBindingCompilerVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.ext.rxAndroidVersion"
+    implementation "io.reactivex.rxjava2:rxkotlin:$rootProject.ext.rxKotlinVersion"
 
     // Tools
-    compile "com.squareup.picasso:picasso:$rootProject.ext.picassoVersion"
-    compile "com.google.firebase:firebase-messaging:$rootProject.ext.firebaseMessagingVersion"
-    compile("com.crashlytics.sdk.android:crashlytics:$rootProject.ext.crashlyticsVersion") {
-        transitive = true
-    }
+    implementation "com.squareup.picasso:picasso:$rootProject.ext.picassoVersion"
+    implementation "com.google.firebase:firebase-messaging:$rootProject.ext.firebaseMessagingVersion"
 
-    apply plugin: 'com.google.gms.google-services'
+    // Testing
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation "androidx.test.ext:junit:$rootProject.ext.testExtJunitVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.ext.espressoVersion"
 }
+
+apply plugin: 'com.google.gms.google-services'

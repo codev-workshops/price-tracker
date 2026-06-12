@@ -1,12 +1,12 @@
 package com.raqun.android.binding
 
 import android.content.res.Resources
-import android.databinding.BindingAdapter
-import android.support.annotation.DrawableRes
-import android.support.annotation.IntegerRes
-import android.support.annotation.StringRes
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.RecyclerView
+import androidx.databinding.BindingAdapter
+import androidx.annotation.DrawableRes
+import androidx.annotation.IntegerRes
+import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
 import android.text.Html
 import android.view.View
 import android.widget.ImageView

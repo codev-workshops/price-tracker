@@ -3,35 +3,29 @@
 
     <data>
 
-        <import type="com.raqun.android.data.DataBean" />
-
-        <import type="java.lang.Boolean" />
-
-        <import type="com.raqun.android.ui.add.AddProductView" />
-
         <import type="com.raqun.android.data.DataState" />
 
         <variable
             name="addProductBean"
-            type="DataBean&lt;Boolean&gt;" />
+            type="com.raqun.android.data.DataBean&lt;java.lang.Boolean&gt;" />
 
         <variable
             name="uiCallback"
-            type="AddProductView" />
+            type="com.raqun.android.ui.add.AddProductView" />
 
         <variable
             name="isUserLoggedIn"
-            type="Boolean" />
+            type="java.lang.Boolean" />
 
     </data>
 
 
-    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/coordinator"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/size_half">
@@ -123,8 +117,8 @@
 
             </RelativeLayout>
 
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
-    </android.support.design.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

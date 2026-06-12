@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.raqun.android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -12,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.main.MainActivity">
+        <activity android:name=".ui.main.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -45,25 +45,22 @@
         <activity android:name=".ui.add.AddProductActivity" />
         <activity android:name=".ui.products.ProductsActivity" />
 
-        <service android:name=".fcm.MyFcmService">
+        <service android:name=".fcm.MyFcmService"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <service android:name=".fcm.MyFcmInstanceIdService">
+        <service android:name=".fcm.MyFcmInstanceIdService"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 
-        <service android:name=".fcm.RegisterTokenService" />
-
-        <!-- Fabric
-        <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="fabric_key_goes_here" />
-            -->
+        <service android:name=".fcm.RegisterTokenService"
+            android:exported="false" />
 
         <!-- Fcm Meta Data -->
         <meta-data

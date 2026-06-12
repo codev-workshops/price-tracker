@@ -1,7 +1,5 @@
 package com.raqun.android.data.source.remote
 
-import com.crashlytics.android.answers.Answers
-import com.crashlytics.android.answers.CustomEvent
 import com.raqun.android.api.ApiConstants
 import com.raqun.android.api.RaqunServices
 import com.raqun.android.data.source.UserDataSource
@@ -29,12 +27,7 @@ class UserRemoteDataSource @Inject constructor(private val raqunServices: RaqunS
     override fun logout(): Completable = raqunServices.logout()
 
     override fun contact(messageType: Int, message: String) {
-        val contactEvent = CustomEvent("contact").apply {
-            putCustomAttribute("type", messageType)
-            putCustomAttribute("message", message)
-        }
-
-        Answers.getInstance().logCustom(contactEvent)
+        // No-op: Fabric/Crashlytics analytics removed
     }
 
     override fun getNotifications(page: Page): Single<PagedResponse<Notification>>

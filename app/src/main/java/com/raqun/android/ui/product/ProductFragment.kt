@@ -1,8 +1,8 @@
 package com.raqun.android.ui.product
 
 import android.os.Bundle
-import android.support.design.widget.TabLayout
-import android.support.v4.view.ViewPager
+import com.google.android.material.tabs.TabLayout
+import androidx.viewpager.widget.ViewPager
 import android.view.View
 import com.raqun.android.R
 import com.raqun.android.databinding.FragmentProductBinding
@@ -10,8 +10,8 @@ import com.raqun.android.model.Product
 import com.raqun.android.ui.BaseActivity
 import com.raqun.android.ui.BinderFragment
 import com.raqun.android.ui.NavigationController
-import android.support.design.widget.AppBarLayout
-import android.support.design.widget.CollapsingToolbarLayout
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.CollapsingToolbarLayout
 
 
 /**
@@ -42,15 +42,15 @@ class ProductFragment : BinderFragment<FragmentProductBinding, ProductViewModel>
         }
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val tabsViewPager = view?.findViewById<ViewPager>(R.id.viewpager)?.apply {
+        val tabsViewPager = view.findViewById<ViewPager>(R.id.viewpager)?.apply {
             adapter = ProductTabsAdapter(resources.getStringArray(R.array.product_detail_tabs),
                     product, productId, childFragmentManager)
         }
 
-        view?.findViewById<TabLayout>(R.id.tabs)?.apply {
+        view.findViewById<TabLayout>(R.id.tabs)?.apply {
             setupWithViewPager(tabsViewPager)
         }
 

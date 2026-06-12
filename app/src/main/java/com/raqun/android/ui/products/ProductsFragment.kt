@@ -1,9 +1,9 @@
 package com.raqun.android.ui.products
 
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.os.Bundle
-import android.support.annotation.StringRes
-import android.support.v7.widget.GridLayoutManager
+import androidx.annotation.StringRes
+import androidx.recyclerview.widget.GridLayoutManager
 import com.raqun.android.Constants
 import com.raqun.android.R
 import com.raqun.android.databinding.FragmentProductsBinding
@@ -31,6 +31,7 @@ class ProductsFragment : BinderFragment<FragmentProductsBinding, ProductsViewMod
         }
     }
 
+    @Suppress("DEPRECATION")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 

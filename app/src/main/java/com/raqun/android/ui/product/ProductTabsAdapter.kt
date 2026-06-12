@@ -1,9 +1,9 @@
 package com.raqun.android.ui.product
 
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import android.util.SparseArray
-import android.support.v4.app.FragmentPagerAdapter
+import androidx.fragment.app.FragmentPagerAdapter
 import com.raqun.android.model.Product
 import com.raqun.android.ui.product.alarms.AlarmsFragment
 import com.raqun.android.ui.product.detail.DetailFragment
@@ -16,7 +16,7 @@ internal class ProductTabsAdapter(
         private val titles: Array<String>,
         private val product: Product?,
         private val productId: String?,
-        fm: FragmentManager) : FragmentPagerAdapter(fm) {
+        fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     override fun getItem(position: Int): Fragment {
         return when (position) {

@@ -1,8 +1,8 @@
 package com.raqun.android.ui.main.notifications
 
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.raqun.android.R
 import com.raqun.android.data.DataBean
 import com.raqun.android.databinding.FragmentNotificationsBinding
@@ -24,6 +24,7 @@ class NotificationsFragment : BinderFragment<FragmentNotificationsBinding, Notif
 
     override fun getModelClass(): Class<NotificationsViewModel> = NotificationsViewModel::class.java
 
+    @Suppress("DEPRECATION")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -42,7 +43,7 @@ class NotificationsFragment : BinderFragment<FragmentNotificationsBinding, Notif
         binding.layoutAuth.message = getString(R.string.information_login_for_notifications)
         binding.navigator = navigationController
         binding.recyclerviewNotifications?.apply {
-            setup(activity, LinearLayoutManager.VERTICAL)
+            setup(requireActivity(), LinearLayoutManager.VERTICAL)
             decorate()
         }
     }

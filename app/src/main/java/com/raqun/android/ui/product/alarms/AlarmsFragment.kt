@@ -1,6 +1,6 @@
 package com.raqun.android.ui.product.alarms
 
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.os.Bundle
 import android.util.Log
 import com.raqun.android.Constants
@@ -33,6 +33,7 @@ class AlarmsFragment : BinderFragment<FragmentAlarmsBinding, AlarmsViewModel>() 
         }
     }
 
+    @Suppress("DEPRECATION")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -42,7 +43,7 @@ class AlarmsFragment : BinderFragment<FragmentAlarmsBinding, AlarmsViewModel>() 
 
     override fun initView() {
         binding.alarms.apply {
-            setup(activity)
+            setup(requireActivity())
             decorate()
         }
     }

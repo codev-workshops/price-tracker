@@ -1,8 +1,8 @@
 package com.raqun.android.ui.main.more
 
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 import android.util.Log
 import com.raqun.android.Constants
 import com.raqun.android.R
@@ -25,6 +25,7 @@ class MoreFragment : BinderFragment<FragmentMoreBinding, MoreViewModel>(), MoreV
 
     override fun getModelClass(): Class<MoreViewModel> = MoreViewModel::class.java
 
+    @Suppress("DEPRECATION")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -69,7 +70,7 @@ class MoreFragment : BinderFragment<FragmentMoreBinding, MoreViewModel>(), MoreV
     }
 
     override fun logout() {
-        Alert.create(activity,
+        Alert.create(requireActivity(),
                 null,
                 getString(R.string.dialog_message_logout),
                 true,

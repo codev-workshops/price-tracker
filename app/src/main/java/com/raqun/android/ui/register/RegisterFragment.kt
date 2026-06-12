@@ -1,7 +1,7 @@
 package com.raqun.android.ui.register
 
 import android.app.ProgressDialog
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.os.Bundle
 import android.view.View
 import com.raqun.android.Constants
@@ -27,16 +27,17 @@ class RegisterFragment : BinderFragment<FragmentRegisterBinding, RegisterViewMod
 
     override fun getTitleRes() = R.string.screen_title_register
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         // TODO try to do with lazy
         // TODO change progress dialog
-        registerProgressDialog = ProgressDialog(context).apply {
+        registerProgressDialog = ProgressDialog(requireContext()).apply {
             setMessage(getString(R.string.dialog_message_wait))
         }
     }
 
+    @Suppress("DEPRECATION")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel.getRegisterLiveData().observe(this, Observer { bean: DataBean<Boolean>? ->
@@ -45,7 +46,7 @@ class RegisterFragment : BinderFragment<FragmentRegisterBinding, RegisterViewMod
                 if (hasError()) {
                     onError(getError())
                 } else if (getData() == true) {
-                    Alert.create(activity,
+                    Alert.create(requireActivity(),
                             getString(R.string.dialog_title_register_success),
                             getString(R.string.success_message_register),
                             true,

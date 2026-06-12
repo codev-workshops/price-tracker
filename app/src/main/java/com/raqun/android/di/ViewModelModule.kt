@@ -1,7 +1,7 @@
 package com.raqun.android.di
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import android.view.View
 import com.raqun.android.ui.add.AddProductViewModel
 import com.raqun.android.ui.contact.ContactViewModel

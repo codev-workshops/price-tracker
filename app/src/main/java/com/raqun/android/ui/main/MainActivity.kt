@@ -1,14 +1,12 @@
 package com.raqun.android.ui.main
 
-import android.app.IntentService
-import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.annotation.LayoutRes
-import android.support.design.widget.BottomNavigationView
-import android.support.design.widget.FloatingActionButton
-import android.support.v4.app.Fragment
+import androidx.annotation.LayoutRes
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import androidx.fragment.app.Fragment
 import android.view.MenuItem
 import com.raqun.android.R
 import com.raqun.android.ui.BaseActivity
@@ -22,10 +20,6 @@ import com.raqun.android.extensions.init
 import com.raqun.android.extensions.openFragment
 import com.raqun.android.fcm.RegisterTokenService
 import com.raqun.android.ui.NavigationController
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasServiceInjector
-import javax.inject.Inject
 
 class MainActivity : BaseActivity(), FabProvider {
 
@@ -49,8 +43,8 @@ class MainActivity : BaseActivity(), FabProvider {
         }
 
         findViewById<BottomNavigationView>(R.id.bottom_navigation).apply {
-            setOnNavigationItemSelectedListener { item: MenuItem? ->
-                when (item?.itemId) {
+            setOnNavigationItemSelectedListener { item: MenuItem ->
+                when (item.itemId) {
                     R.id.action_home -> openFragment(HomeFragment.newInstance())
                     R.id.action_favs -> openFragment(FavoritesFragment.newInstance())
                     R.id.action_notifications -> openFragment(NotificationsFragment.newInstance())

@@ -1,10 +1,9 @@
 package com.raqun.android.ui.add
 
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import com.crashlytics.android.answers.Answers
 import com.raqun.android.R
 import com.raqun.android.api.ApiConstants
 import com.raqun.android.data.DataBean
@@ -14,7 +13,7 @@ import com.raqun.android.extensions.*
 import com.raqun.android.model.UiDataBean
 import com.raqun.android.ui.BinderFragment
 import com.raqun.android.ui.view.AuthView
-import com.raqun.android.util.reportAddProduct
+import com.raqun.android.util.AnalyticsHelper
 
 /**
  * Created by tyln on 18/09/2017.
@@ -28,6 +27,7 @@ class AddProductFragment : BinderFragment<FragmentAddBinding, AddProductViewMode
 
     override fun getTitleRes() = R.string.screen_title_add
 
+    @Suppress("DEPRECATION")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -53,7 +53,7 @@ class AddProductFragment : BinderFragment<FragmentAddBinding, AddProductViewMode
             }
 
             if (bean != null && bean.getState() != DataState.FETCHING) {
-                Answers.getInstance().reportAddProduct(bean.getState(),
+                AnalyticsHelper.reportAddProduct(bean.getState(),
                         binding.edittextUrl.text.toString())
             }
         })
@@ -63,8 +63,8 @@ class AddProductFragment : BinderFragment<FragmentAddBinding, AddProductViewMode
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
             R.id.action_clear -> clearEditText()
             else -> super.onOptionsItemSelected(item)
         }
@@ -79,7 +79,7 @@ class AddProductFragment : BinderFragment<FragmentAddBinding, AddProductViewMode
     override fun addProduct() {
         val url = binding.edittextUrl.getUrl()
         url?.let {
-            activity.forceCloseKeyboard()
+            requireActivity().forceCloseKeyboard()
             viewModel.addProduct(it)
         }
     }

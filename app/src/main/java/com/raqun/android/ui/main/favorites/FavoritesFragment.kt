@@ -1,8 +1,8 @@
 package com.raqun.android.ui.main.favorites
 
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.raqun.android.Constants
 import com.raqun.android.R
 import com.raqun.android.RaqunApp
@@ -26,6 +26,7 @@ class FavoritesFragment : BinderFragment<FragmentFavoritesBinding, FavoritesView
 
     override fun getModelClass(): Class<FavoritesViewModel> = FavoritesViewModel::class.java
 
+    @Suppress("DEPRECATION")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 

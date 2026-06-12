@@ -1,7 +1,7 @@
 package com.raqun.android.ui.login
 
 import android.app.ProgressDialog
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.os.Bundle
 import android.view.View
 import com.raqun.android.BuildConfig
@@ -28,16 +28,17 @@ class LoginFragment : BinderFragment<FragmentLoginBinding, LoginViewModel>(), Lo
 
     override fun getTitleRes() = R.string.screen_title_login
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         // TODO try to do with lazy
         // TODO change progress dialog
-        loginProgressDialog = ProgressDialog(context).apply {
+        loginProgressDialog = ProgressDialog(requireContext()).apply {
             setMessage(getString(R.string.dialog_message_logging_in))
         }
     }
 
+    @Suppress("DEPRECATION")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel.getLoginLiveData().observe(this, Observer { bean: DataBean<User>? ->

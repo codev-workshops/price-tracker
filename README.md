@@ -1,32 +1,76 @@
 # price-tracker
-Price Tracking Application 
+Price Tracking Application
 
-This is an experimental Kotlin Android project. Due to some server side problems, the project is not in production now but it's ready to ship. I'm still doing refactor on code and trying to improve Kotlin spesific implementations in project. 
+This is a Kotlin Android project modernized to current AndroidX / Gradle tooling.
 
-Code reviews and PRs are always approvable. 
+## Prerequisites
 
-Feel free to modify and use code.
+| Tool | Version |
+|------|---------|
+| JDK | 17 (OpenJDK) |
+| Android SDK | Platform 33, Build-tools 33.0.2 |
+| Gradle | 7.6 (wrapper included) |
 
-# Screenshots
+## Setup
+
+```bash
+# Set environment
+export ANDROID_HOME=/path/to/android-sdk
+export JAVA_HOME=/path/to/java-17
+
+# Install SDK components (if needed)
+sdkmanager "platforms;android-33" "build-tools;33.0.2" "platform-tools"
+
+# Create local.properties
+echo "sdk.dir=$ANDROID_HOME" > local.properties
+
+# Build
+./gradlew assembleDevDebug
+
+# Run unit tests
+./gradlew testDevDebugUnitTest
+```
+
+## Build Variants
+
+| Flavor | Suffix | Description |
+|--------|--------|-------------|
+| dev | `.dev` | Development |
+| beta | `.beta` | Beta |
+| prod | *(none)* | Production |
+
+## Tech Stack
+
+* **Language**: Kotlin 1.8.22
+* **Build**: AGP 7.4.2, Gradle 7.6
+* **Architecture**: MVVM with AndroidX Lifecycle + ViewModelProvider
+* **DI**: Dagger 2.48 (android-support with `HasAndroidInjector`)
+* **Networking**: Retrofit 2.9 + OkHttp 4.11 + RxJava2
+* **UI**: Data Binding, Material Design, Bottom Navigation, CoordinatorLayout
+* **Firebase**: Cloud Messaging 23.2.1
+* **Min SDK**: 21 / **Target SDK**: 33
+
+## Modernization Notes
+
+This project was migrated from a 2017-era Android setup:
+- `android.support.*` → `androidx.*`
+- `android.arch.lifecycle.*` → `androidx.lifecycle.*`
+- Dagger `HasActivityInjector` / `HasSupportFragmentInjector` → `HasAndroidInjector`
+- `ViewModelProviders.of()` → `ViewModelProvider()`
+- Fabric / Crashlytics removed (replaced with no-op stubs)
+- Firebase Cloud Messaging updated to modern API
+- Fragment / RecyclerView nullable parameter signatures updated
+
+## Screenshots
+
 <img src="https://raw.githubusercontent.com/savepopulation/price-tracker/master/art/home.png"
 height="384" width="210"> <img src="https://github.com/savepopulation/price-tracker/blob/master/art/product_detail.png"
 height="384" width="210"> <img src="https://raw.githubusercontent.com/savepopulation/price-tracker/master/art/notifications.png"
 height="384" width="210"> <img src="https://raw.githubusercontent.com/savepopulation/price-tracker/master/art/more.png"
 height="384" width="210">
 
-# Tech Stack
-* Kotlin
-* MVVM
-* Data Binding
-* Architecture Components
-* RxKotlin
-* Retrofit 2.0
-* Dagger2 
-* Repository
-* Rotation Support
-* Bottom Navigation
+## License
 
-# License
 MIT License
 
 Copyright (c) 2017 Taylan Sbrcn

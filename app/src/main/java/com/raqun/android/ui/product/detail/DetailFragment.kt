@@ -1,6 +1,6 @@
 package com.raqun.android.ui.product.detail
 
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.os.Bundle
 import com.raqun.android.Constants
 import com.raqun.android.R
@@ -33,6 +33,7 @@ class DetailFragment : BinderFragment<FragmentDetailsBinding, DetailViewModel>()
         }
     }
 
+    @Suppress("DEPRECATION")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 

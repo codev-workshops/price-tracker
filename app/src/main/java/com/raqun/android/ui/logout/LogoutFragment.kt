@@ -1,6 +1,6 @@
 package com.raqun.android.ui.logout
 
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.os.Bundle
 import android.view.View
 import com.raqun.android.R
@@ -16,6 +16,7 @@ class LogoutFragment : BinderFragment<FragmentLogoutBinding, LogoutViewModel>() 
 
     override fun getLayoutRes(): Int = R.layout.fragment_logout
 
+    @Suppress("DEPRECATION")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 

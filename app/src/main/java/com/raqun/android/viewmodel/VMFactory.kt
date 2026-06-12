@@ -1,7 +1,7 @@
 package com.raqun.android.viewmodel
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import android.view.View
 import javax.inject.Inject
 import javax.inject.Provider
@@ -16,7 +16,7 @@ class VMFactory @Inject constructor(private val creators: Map<Class<out ViewMode
     : ViewModelProvider.Factory {
 
     @SuppressWarnings("Unchecked")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         var creator = creators[modelClass]
 
         if (creator == null) {

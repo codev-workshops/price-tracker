@@ -1,16 +1,13 @@
 package com.raqun.android.extensions
 
-import android.annotation.SuppressLint
 import android.app.ProgressDialog
 import android.content.Context
-import android.support.annotation.DrawableRes
-import android.support.design.internal.BottomNavigationItemView
-import android.support.design.internal.BottomNavigationMenuView
-import android.support.design.widget.BottomNavigationView
-import android.support.design.widget.CoordinatorLayout
-import android.support.design.widget.Snackbar
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.annotation.DrawableRes
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import com.google.android.material.snackbar.Snackbar
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.text.TextUtils
 import android.view.View
 import android.widget.EditText
@@ -37,24 +34,8 @@ fun RecyclerView.decorate() {
     this.addItemDecoration(DividerDecorator(this.context))
 }
 
-@SuppressLint("RestrictedApi")
 fun BottomNavigationView.disableShiftingMode() {
-    val menuView = this.getChildAt(0) as BottomNavigationMenuView
-    try {
-        val shiftingMode = menuView.javaClass.getDeclaredField("mShiftingMode")
-        shiftingMode.isAccessible = true
-        shiftingMode.setBoolean(menuView, false)
-        shiftingMode.isAccessible = false
-        for (i in 0..menuView.childCount - 1) {
-            val item = menuView.getChildAt(i) as BottomNavigationItemView
-            item.setShiftingMode(false)
-            item.setChecked(item.itemData.isChecked)
-        }
-    } catch (e: NoSuchFieldException) {
-        // ignored
-    } catch (e: IllegalAccessException) {
-        // ignored
-    }
+    labelVisibilityMode = BottomNavigationView.LABEL_VISIBILITY_LABELED
 }
 
 fun ProgressDialog.init(state: DataState) {
@@ -91,22 +72,11 @@ fun ImageView.showEmptyImage() {
 
 fun EditText.pasteFromClipBoard() {
     var text = ""
-    val currentSdk = android.os.Build.VERSION.SDK_INT
-    if (currentSdk < android.os.Build.VERSION_CODES.HONEYCOMB) {
-        val manager: android.text.ClipboardManager = context.getSystemService(Context.CLIPBOARD_SERVICE)
-                as android.text.ClipboardManager
-        try {
-            text = manager.text.toString()
-        } catch (e: Exception) {
-            // ignored
-        }
-    } else {
-        val manager: android.content.ClipboardManager = context.getSystemService(Context.CLIPBOARD_SERVICE)
-                as android.content.ClipboardManager
-        manager.primaryClip?.let {
-            val item = manager.primaryClip.getItemAt(0)
-            text = item.text.toString()
-        }
+    val manager: android.content.ClipboardManager = context.getSystemService(Context.CLIPBOARD_SERVICE)
+            as android.content.ClipboardManager
+    manager.primaryClip?.let {
+        val item = it.getItemAt(0)
+        text = item.text.toString()
     }
 
     if (!TextUtils.isEmpty(text)) setText(text)
@@ -133,7 +103,7 @@ fun CoordinatorLayout.snackThat(meesage: CharSequence,
     if (singleShot != null) {
         sb.setAction(buttonText, singleShot)
     } else {
-        sb.setAction(buttonText, { sb.dismiss() })
+        sb.setAction(buttonText) { sb.dismiss() }
     }
     sb.show()
 }

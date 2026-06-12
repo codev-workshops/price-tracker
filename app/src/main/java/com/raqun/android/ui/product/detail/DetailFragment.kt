@@ -1,5 +1,6 @@
 package com.raqun.android.ui.product.detail
 
+import dagger.hilt.android.AndroidEntryPoint
 import androidx.lifecycle.Observer
 import android.os.Bundle
 import com.raqun.android.Constants
@@ -15,6 +16,7 @@ import com.raqun.android.ui.product.ProductFragment
 /**
  * Created by tyln on 06/11/2017.
  */
+@AndroidEntryPoint
 class DetailFragment : BinderFragment<FragmentDetailsBinding, DetailViewModel>() {
 
     private var product: Product? = null

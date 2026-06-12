@@ -1,5 +1,6 @@
 package com.raqun.android.ui.contact
 
+import dagger.hilt.android.AndroidEntryPoint
 import com.raqun.android.R
 import com.raqun.android.databinding.FragmentContactBinding
 import com.raqun.android.ui.BaseFragment
@@ -8,6 +9,7 @@ import com.raqun.android.ui.BinderFragment
 /**
  * Created by tyln on 14/08/2017.
  */
+@AndroidEntryPoint
 class ContactFragment : BinderFragment<FragmentContactBinding, ContactViewModel>(), ContactView {
 
     override fun getModelClass() = ContactViewModel::class.java

@@ -115,6 +115,10 @@ dependencies {
     implementation "com.google.dagger:hilt-android:$rootProject.ext.daggerVersion"
     kapt "com.google.dagger:hilt-compiler:$rootProject.ext.daggerVersion"
 
+    // Navigation
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.8.4'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.8.4'
+
     // Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0'

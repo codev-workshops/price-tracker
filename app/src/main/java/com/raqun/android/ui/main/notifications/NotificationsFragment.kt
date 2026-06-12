@@ -1,5 +1,6 @@
 package com.raqun.android.ui.main.notifications
 
+import dagger.hilt.android.AndroidEntryPoint
 import androidx.lifecycle.Observer
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +18,7 @@ import com.raqun.android.ui.main.FabProvider
 /**
  * Created by tyln on 31/07/2017.
  */
+@AndroidEntryPoint
 class NotificationsFragment : BinderFragment<FragmentNotificationsBinding, NotificationsViewModel>(),
         AuthView {
 

@@ -1,5 +1,6 @@
 package com.raqun.android.ui.product
 
+import dagger.hilt.android.AndroidEntryPoint
 import android.os.Bundle
 import com.google.android.material.tabs.TabLayout
 import androidx.viewpager.widget.ViewPager
@@ -17,6 +18,7 @@ import com.google.android.material.appbar.CollapsingToolbarLayout
 /**
  * Created by tyln on 06/09/2017.
  */
+@AndroidEntryPoint
 class ProductFragment : BinderFragment<FragmentProductBinding, ProductViewModel>() {
 
     private var product: Product? = null

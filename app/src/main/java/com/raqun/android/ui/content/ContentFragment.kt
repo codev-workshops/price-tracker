@@ -1,5 +1,6 @@
 package com.raqun.android.ui.content
 
+import dagger.hilt.android.AndroidEntryPoint
 import androidx.lifecycle.Observer
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +14,7 @@ import com.raqun.android.ui.BinderFragment
 /**
  * Created by tyln on 26/08/2017.
  */
+@AndroidEntryPoint
 class ContentFragment : BinderFragment<FragmentContentBinding, ContentViewModel>() {
 
     private var contentId: Int = 0

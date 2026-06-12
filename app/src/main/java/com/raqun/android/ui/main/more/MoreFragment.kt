@@ -1,5 +1,6 @@
 package com.raqun.android.ui.main.more
 
+import dagger.hilt.android.AndroidEntryPoint
 import androidx.lifecycle.Observer
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
@@ -19,6 +20,7 @@ import com.raqun.android.util.Alert
 /**
  * Created by tyln on 31/07/2017.
  */
+@AndroidEntryPoint
 class MoreFragment : BinderFragment<FragmentMoreBinding, MoreViewModel>(), MoreView {
 
     override fun getLayoutRes(): Int = R.layout.fragment_more

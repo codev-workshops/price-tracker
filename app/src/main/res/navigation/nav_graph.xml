@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/action_home">
+
+    <fragment
+        android:id="@+id/action_home"
+        android:name="com.raqun.android.ui.main.home.HomeFragment"
+        android:label="Home" />
+
+    <fragment
+        android:id="@+id/action_favs"
+        android:name="com.raqun.android.ui.main.favorites.FavoritesFragment"
+        android:label="Favorites" />
+
+    <fragment
+        android:id="@+id/action_notifications"
+        android:name="com.raqun.android.ui.main.notifications.NotificationsFragment"
+        android:label="Notifications" />
+
+    <fragment
+        android:id="@+id/action_more"
+        android:name="com.raqun.android.ui.main.more.MoreFragment"
+        android:label="More" />
+
+</navigation>

@@ -1,5 +1,6 @@
 package com.raqun.android.ui.products
 
+import dagger.hilt.android.AndroidEntryPoint
 import androidx.lifecycle.Observer
 import android.os.Bundle
 import androidx.annotation.StringRes
@@ -16,6 +17,7 @@ import com.raqun.android.ui.BinderFragment
 /**
  * Created by tyln on 02/10/2017.
  */
+@AndroidEntryPoint
 class ProductsFragment : BinderFragment<FragmentProductsBinding, ProductsViewModel>() {
 
     private var productType = ProductListType.FAV

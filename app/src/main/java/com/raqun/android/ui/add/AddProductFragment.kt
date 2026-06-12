@@ -1,5 +1,6 @@
 package com.raqun.android.ui.add
 
+import dagger.hilt.android.AndroidEntryPoint
 import androidx.lifecycle.Observer
 import android.os.Bundle
 import android.view.MenuItem
@@ -18,6 +19,7 @@ import com.raqun.android.util.AnalyticsHelper
 /**
  * Created by tyln on 18/09/2017.
  */
+@AndroidEntryPoint
 class AddProductFragment : BinderFragment<FragmentAddBinding, AddProductViewModel>(),
         AddProductView, AuthView {
 

@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-parcelize'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: 'org.jetbrains.kotlin.plugin.compose'
 
 android {
     compileSdk 35
@@ -53,6 +54,7 @@ android {
     buildFeatures {
         dataBinding true
         buildConfig true
+        compose true
     }
 
     packagingOptions {
@@ -122,6 +124,17 @@ dependencies {
     // Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0'
+
+    // Compose
+    implementation platform('androidx.compose:compose-bom:2024.06.00')
+    implementation 'androidx.compose.material3:material3'
+    implementation 'androidx.compose.ui:ui'
+    implementation 'androidx.compose.ui:ui-tooling-preview'
+    implementation 'androidx.compose.runtime:runtime-livedata'
+    implementation 'androidx.activity:activity-compose:1.9.3'
+    implementation 'androidx.navigation:navigation-compose:2.8.4'
+    implementation 'io.coil-kt:coil-compose:2.7.0'
+    debugImplementation 'androidx.compose.ui:ui-tooling'
 
     // Tools
     implementation "io.coil-kt:coil:$rootProject.ext.coilVersion"

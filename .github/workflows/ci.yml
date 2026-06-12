@@ -9,7 +9,10 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
+      - name: Create placeholder google-services.json
+        run: |
+          echo '{"project_info":{"project_number":"000000000000","project_id":"placeholder","storage_bucket":"placeholder.appspot.com"},"client":[{"client_info":{"mobilesdk_app_id":"1:000000000000:android:0000000000000000","android_client_info":{"package_name":"com.raqun.android"}},"api_key":[{"current_key":"placeholder_api_key"}]},{"client_info":{"mobilesdk_app_id":"1:000000000000:android:0000000000000001","android_client_info":{"package_name":"com.raqun.android.dev"}},"api_key":[{"current_key":"placeholder_api_key"}]},{"client_info":{"mobilesdk_app_id":"1:000000000000:android:0000000000000002","android_client_info":{"package_name":"com.raqun.android.beta"}},"api_key":[{"current_key":"placeholder_api_key"}]}],"configuration_version":"1"}' > app/google-services.json
       - name: Build
-        run: ./gradlew assembleDebug
+        run: ./gradlew assembleDevDebug
       - name: Unit Tests
-        run: ./gradlew test
+        run: ./gradlew testDevDebugUnitTest

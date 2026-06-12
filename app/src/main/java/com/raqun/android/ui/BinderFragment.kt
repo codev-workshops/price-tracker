@@ -15,7 +15,7 @@ import javax.inject.Inject
  */
 abstract class BinderFragment<VB : ViewDataBinding, VM : ViewModel> : BaseFragment() {
 
-    @Inject protected lateinit var vmFactory: ViewModelProvider.Factory
+    @Inject internal lateinit var vmFactory: ViewModelProvider.Factory
     protected lateinit var binding: VB
     protected lateinit var viewModel: VM
 

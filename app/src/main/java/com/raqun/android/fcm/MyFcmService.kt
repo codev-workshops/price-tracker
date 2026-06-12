@@ -10,15 +10,16 @@ import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.raqun.android.R
-import com.raqun.android.model.NotificationType
 import com.raqun.android.ui.NavigationController
 import com.raqun.android.ui.main.MainActivity
-import com.raqun.android.ui.product.ProductActivity
 
-/**
- * Created by tyln on 24/10/2017.
- */
 class MyFcmService : FirebaseMessagingService() {
+
+    override fun onNewToken(token: String) {
+        super.onNewToken(token)
+        RegisterTokenService.enqueue(this, refresh = true)
+    }
+
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         if (getString(R.string.gcm_defaultSenderId) == remoteMessage.from) {
             remoteMessage.notification?.let {

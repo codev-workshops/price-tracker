@@ -13,16 +13,12 @@ import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
 import com.raqun.android.R
-import com.raqun.android.binding.ImageBindingAdapter
 import com.raqun.android.data.DataState
 import com.raqun.android.util.DividerDecorator
-import com.squareup.picasso.Picasso
+import coil.load
 import java.net.MalformedURLException
 import java.net.URL
 
-/**
- * Created by tyln on 12/10/2017.
- */
 fun RecyclerView.setup(context: Context, orientation: Int = LinearLayoutManager.VERTICAL) {
     val layoutManager = LinearLayoutManager(context)
     layoutManager.orientation = orientation
@@ -55,14 +51,13 @@ fun ProgressDialog.init(state: DataState) {
 }
 
 fun ImageView.loadImage(url: String?) {
-    if (url == null || url.isEmpty()) {
+    if (url.isNullOrEmpty()) {
         showEmptyImage()
     } else {
-        Picasso.with(context.applicationContext)
-                .load(url)
-                .placeholder(R.drawable.ic_photo_camera)
-                .error(R.drawable.ic_photo_camera)
-                .into(this)
+        load(url) {
+            placeholder(R.drawable.ic_photo_camera)
+            error(R.drawable.ic_photo_camera)
+        }
     }
 }
 

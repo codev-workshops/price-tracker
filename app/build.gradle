@@ -122,7 +122,7 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxkotlin:$rootProject.ext.rxKotlinVersion"
 
     // Tools
-    implementation "com.squareup.picasso:picasso:$rootProject.ext.picassoVersion"
+    implementation "io.coil-kt:coil:$rootProject.ext.coilVersion"
     implementation "com.google.firebase:firebase-messaging:$rootProject.ext.firebaseMessagingVersion"
 
     // Testing

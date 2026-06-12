@@ -33,7 +33,7 @@ class MainActivity : BaseActivity(), FabProvider {
         init(savedInstanceState, HomeFragment.newInstance())
 
         if (savedInstanceState == null) {
-            startService(RegisterTokenService.newIntent(this))
+            RegisterTokenService.enqueue(this)
         }
 
         fab = findViewById<FloatingActionButton>(R.id.fab_add)?.also {
